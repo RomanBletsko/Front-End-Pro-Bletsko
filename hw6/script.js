@@ -55,9 +55,9 @@ const checkingForPerfectNumber = (num1) => {
       }
     }
     if (dividers === num1) {
-      console.log(`Число ${num1} є досконалим!`);
+      return `Число ${num1} є досконалим!`;
     } else {
-      console.log(`Число ${num1} не є досконалим!`);
+      return `Число ${num1} не є досконалим!`;
     }
   }
 };
@@ -66,9 +66,9 @@ checkingForPerfectNumber(10); // Не є досконалим!
 checkingForPerfectNumber(47); // НЕ є досконалим!
 
 const sumNumbersInRange = (num1, num2) => {
-  if (typeof num1 !== "number") {
+  if (typeof num1 !== "number" || typeof num2 !== "number") {
     console.log("Ви вели не вірний тип даних!");
-  } else if (isNaN(num1)) {
+  } else if (isNaN(num1) || isNaN(num2)) {
     console.log("Ви вели не вірний тип даних!");
   } else {
     const largeNumber = Math.max(num1, num2);
@@ -91,7 +91,7 @@ const convertСelsiusFahrenheit = (celsius) => {
   } else if (isNaN(celsius)) {
     console.log("Ви вели не вірний тип даних!");
   } else {
-    return (fahrenheit = Math.round(celsius * 1.8 + 32));
+    return Math.round(celsius * 1.8 + 32);
   }
 };
 convertСelsiusFahrenheit(0); //32
