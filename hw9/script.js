@@ -135,76 +135,67 @@ const Calculator = function () {
       this.number1 = +prompt("Ведіть перше число");
       this.number2 = +prompt("Ведіть друге число");
     }),
-    (this.calculateSum = function () {
-      for (let i = 0; i < 1; i++) {
-        if (
-          isNaN(this.number1) ||
-          isNaN(this.number2) ||
-          this.number1 === null ||
-          this.number2 === null
-        ) {
-          this.enterData();
-          i--;
-        } else {
-          return this.number1 + this.number2;
-        }
+    (this.calculateSum = () => {
+      if (
+        isNaN(this.number1) ||
+        isNaN(this.number2) ||
+        this.number1 === null ||
+        this.number2 === null
+      ) {
+        this.enterData();
+        this.calculateSum();
       }
+      return this.number1 + this.number2;
     }),
     (this.calculateNSD = function () {
-      for (let i = 0; i < 1; i++) {
-        if (
-          isNaN(this.number1) ||
-          isNaN(this.number2) ||
-          this.number1 === null ||
-          this.number2 === null
-        ) {
-          this.enterData();
-          i--;
-        } else {
-          let maxDivisor = 0;
-          for (
-            let i = 1;
-            i < Math.abs(this.number1) && i < Math.abs(this.number2);
-            i++
-          ) {
-            if (this.number1 % i === 0 && this.number2 % i === 0) {
-              maxDivisor = i;
-            }
-          }
-          if (maxDivisor === 1) {
-            console.log(
-              `Числа ${this.number1} і ${this.number2} не мають спільного дільника!`
-            );
-          } else {
-            return maxDivisor;
-          }
+      let maxDivisor = 0;
+      if (
+        isNaN(this.number1) ||
+        isNaN(this.number2) ||
+        this.number1 === null ||
+        this.number2 === null
+      ) {
+        this.enterData();
+        this.calculateNSD();
+      }
+      for (
+        let i = 1;
+        i < Math.abs(this.number1) && i < Math.abs(this.number2);
+        i++
+      ) {
+        if (this.number1 % i === 0 && this.number2 % i === 0) {
+          maxDivisor = i;
         }
+      }
+
+      if (maxDivisor !== 1) {
+        return maxDivisor;
+      } else {
+        return `Числа ${this.number1} і ${this.number2} не мають спільного дільника!`;
       }
     }),
     (this.calculateNSK = function () {
-      for (let i = 0; i < 1; i++) {
-        if (
-          isNaN(this.number1) ||
-          isNaN(this.number2) ||
-          this.number1 === null ||
-          this.number2 === null
-        ) {
-          this.enterData();
-          i--;
-        } else {
-          let min = this.number1 > this.number2 ? this.number1 : this.number2;
-          while (true) {
-            if (min === this.number1 || min === this.number2) {
-              min++;
-            } else {
-              if (min % this.number1 === 0 && min % this.number2 === 0) {
-                break;
-              }
-            }
+      if (
+        isNaN(this.number1) ||
+        isNaN(this.number2) ||
+        this.number1 === null ||
+        this.number2 === null
+      ) {
+        this.enterData();
+        this.calculateNSK();
+      } else {
+        let min = this.number1 > this.number2 ? this.number1 : this.number2;
+        while (true) {
+          if (min === this.number1 || min === this.number2) {
             min++;
+          } else {
+            if (min % this.number1 === 0 && min % this.number2 === 0) {
+              break;
+            }
           }
-          return min;
+          min++;
         }
+        return min;
       }
     });
 };
