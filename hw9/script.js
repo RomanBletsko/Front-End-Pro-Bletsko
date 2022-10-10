@@ -27,41 +27,41 @@ const Person = function (
   countriesForTravel
 ) {
   if (
-    dataVerification(
+    !dataVerification(
       name,
       age,
       gender,
       nationality,
       country,
       countriesForTravel
-    ) === false
+    )
   ) {
     console.log("не вірний тип данних!");
   } else {
-    (this.name = name),
-      (this.age = age),
-      (this.gender = gender),
-      (this.nationality = nationality),
-      (this.country = country),
-      (this.countriesForTravel = countriesForTravel);
+    this.name = name;
+    this.age = age;
+    this.gender = gender;
+    this.nationality = nationality;
+    this.country = country;
+    this.countriesForTravel = countriesForTravel;
   }
 };
 const human = new Person("Roman", 33, "male", "Ukrainian", "Ukraine", [
   "Canada",
   "USA",
 ]);
-const fnAcquaintance = function (person) {
+const fnAcquaintance = function () {
   console.log(
     `Hello my name is ${this.name}, i am ${this.age} yers old, my gender is ${this.gender}, i am ${this.nationality} , i live in ${this.country}.`
   );
 };
-const fnWakeUp = function (person) {
+const fnWakeUp = function () {
   console.log(`${this.name} wakes up  in ${this.country}.`);
 };
-const fnFallAsleep = function (person) {
+const fnFallAsleep = function () {
   console.log(`${this.name} fall asleep in ${this.country}.`);
 };
-const fnCountriesForTravel = function (person) {
+const fnCountriesForTravel = function () {
   console.log(
     `${this.name} want to trawel in these contris: ${this.countriesForTravel}.`
   );
@@ -129,75 +129,75 @@ const student2 = {
 comparisonOfObjects(student1, student2);
 
 const Calculator = function () {
-  (this.number1 = null),
-    (this.number2 = null),
-    (this.enterData = function () {
-      this.number1 = +prompt("Ведіть перше число");
-      this.number2 = +prompt("Ведіть друге число");
-    }),
-    (this.calculateSum = () => {
-      if (
-        isNaN(this.number1) ||
-        isNaN(this.number2) ||
-        this.number1 === null ||
-        this.number2 === null
-      ) {
-        this.enterData();
-        this.calculateSum();
+  this.number1 = null;
+  this.number2 = null;
+  this.enterData = function () {
+    this.number1 = +prompt("Ведіть перше число");
+    this.number2 = +prompt("Ведіть друге число");
+  };
+  this.calculateSum = () => {
+    if (
+      isNaN(this.number1) ||
+      isNaN(this.number2) ||
+      this.number1 === null ||
+      this.number2 === null
+    ) {
+      this.enterData();
+      this.calculateSum();
+    }
+    return this.number1 + this.number2;
+  };
+  this.calculateNSD = function () {
+    let maxDivisor = 0;
+    if (
+      isNaN(this.number1) ||
+      isNaN(this.number2) ||
+      this.number1 === null ||
+      this.number2 === null
+    ) {
+      this.enterData();
+      this.calculateNSD();
+    }
+    for (
+      let i = 1;
+      i < Math.abs(this.number1) && i < Math.abs(this.number2);
+      i++
+    ) {
+      if (this.number1 % i === 0 && this.number2 % i === 0) {
+        maxDivisor = i;
       }
-      return this.number1 + this.number2;
-    }),
-    (this.calculateNSD = function () {
-      let maxDivisor = 0;
-      if (
-        isNaN(this.number1) ||
-        isNaN(this.number2) ||
-        this.number1 === null ||
-        this.number2 === null
-      ) {
-        this.enterData();
-        this.calculateNSD();
-      }
-      for (
-        let i = 1;
-        i < Math.abs(this.number1) && i < Math.abs(this.number2);
-        i++
-      ) {
-        if (this.number1 % i === 0 && this.number2 % i === 0) {
-          maxDivisor = i;
-        }
-      }
+    }
 
-      if (maxDivisor !== 1) {
-        return maxDivisor;
-      } else {
-        return `Числа ${this.number1} і ${this.number2} не мають спільного дільника!`;
-      }
-    }),
-    (this.calculateNSK = function () {
-      if (
-        isNaN(this.number1) ||
-        isNaN(this.number2) ||
-        this.number1 === null ||
-        this.number2 === null
-      ) {
-        this.enterData();
-        this.calculateNSK();
-      } else {
-        let min = this.number1 > this.number2 ? this.number1 : this.number2;
-        while (true) {
-          if (min === this.number1 || min === this.number2) {
-            min++;
-          } else {
-            if (min % this.number1 === 0 && min % this.number2 === 0) {
-              break;
-            }
-          }
+    if (maxDivisor !== 1) {
+      return maxDivisor;
+    } else {
+      return `Числа ${this.number1} і ${this.number2} не мають спільного дільника!`;
+    }
+  };
+  this.calculateNSK = function () {
+    if (
+      isNaN(this.number1) ||
+      isNaN(this.number2) ||
+      this.number1 === null ||
+      this.number2 === null
+    ) {
+      this.enterData();
+      this.calculateNSK();
+    } else {
+      let min = this.number1 > this.number2 ? this.number1 : this.number2;
+      while (true) {
+        if (min === this.number1 || min === this.number2) {
           min++;
+        } else {
+          if (min % this.number1 === 0 && min % this.number2 === 0) {
+            break;
+          }
         }
-        return min;
+        min++;
       }
-    });
+      return min;
+    }
+  };
 };
 const calculator_1 = new Calculator();
 calculator_1.enterData();
