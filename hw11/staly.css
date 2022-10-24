@@ -1,0 +1,21 @@
+body{
+    margin: 0;
+    background: #c6fff2;
+    font: 14px/18px black Arial, sans-serif;
+}
+.products-list{ 
+    margin: 0;
+    list-style: none;
+    padding:20px 0;
+    
+}
+.product-item {
+    margin: 0;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between  ;
+    color: #441414;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+}
