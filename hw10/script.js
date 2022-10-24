@@ -59,11 +59,7 @@ const dieler = function (car) {
         [1.7, 1.9, 2.2], // Коефіціент за вагу, тип Універсал.
       ],
     ];
-    let priceByType;
-    let a1; // Тип кузова.
-    let a2; // Рік авто.
-    let a3; // Тип двигуна.
-    let a4; // Вага авто.
+    let priceByType, a1, a2, a3, a4; // Тип кузова, рік авто, тип двигуна, вага авто.
     car instanceof Hatchback
       ? ((priceByType = 110), (a1 = 0))
       : car instanceof Sedan
