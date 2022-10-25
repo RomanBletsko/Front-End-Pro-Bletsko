@@ -180,22 +180,29 @@ const listOfProducts = [
     productPrice: 75.4,
   },
 ];
+const header = document.createElement("h1");
+header.innerHTML = "List of product";
+header.classList.add("header");
+document.body.prepend(header);
 
-const ul = document.createElement("ul");
-ul.classList.add("products-list");
-document.body.prepend(ul);
+const list = document.createElement("ul");
+list.classList.add("products-list");
+
+let maxPrice = 0;
+let allPrice = 0;
+
 for (let i = 0; i < listOfProducts.length; i++) {
-  const li = document.createElement("li");
+  const item = document.createElement("li");
   for (let x = 0; x < 8; x++) {
     const span = document.createElement("span");
-    li.append(span);
+    item.append(span);
     if (x % 2 === 0) {
-      span.style.color = "#05267b";
+      span.classList.add("span-color");
     }
   }
-  ul.append(li);
-  li.classList.add(`item-${i + 1}`);
-  li.classList.add("product-item");
+
+  // li.classList.add(`item-${i + 1}`);
+  item.classList.add("product-item");
 
   const name = listOfProducts[i]["productName"];
   const weight = listOfProducts[i].productDate.weight;
@@ -204,6 +211,7 @@ for (let i = 0; i < listOfProducts.length; i++) {
   const price = listOfProducts[i]["productPrice"];
   const provider = listOfProducts[i]["productProvider"];
   const sertificate = listOfProducts[i].productDate.sertificate ? " " : "!";
+
   let country;
   switch (listOfProducts[i].productCountry) {
     case "UA":
@@ -217,17 +225,40 @@ for (let i = 0; i < listOfProducts.length; i++) {
       break;
   }
 
-  li.children[0].innerHTML = `Name:  ${name} `;
-  li.children[1].innerHTML = `Weight:  ${weight} g.`;
-  li.children[2].innerHTML = `Date of expiry:  ${date}`;
-  li.children[3].innerHTML = `sugar:  ${sugar}`;
-  li.children[4].innerHTML = `price:  ${price}грн.`;
-  li.children[5].innerHTML = `provider:  ${provider}`;
-  li.children[6].innerHTML = sertificate;
-  li.children[7].innerHTML = `<img src=${country} />`;
-  li.children[6].style.fontSize = "30px";
-  li.children[6].style.color = "red";
+  item.children[0].innerHTML = `Name:  ${name} `;
+  item.children[1].innerHTML = `Weight:  ${weight} g.`;
+  item.children[2].innerHTML = `Date of expiry:  ${date}`;
+  item.children[3].innerHTML = `sugar:  ${sugar}`;
+  item.children[4].innerHTML = `price:  ${price}грн.`;
+  item.children[5].innerHTML = `provider:  ${provider}`;
+  item.children[6].innerHTML = sertificate;
+  item.children[7].innerHTML = `<img src=${country} />`;
+  item.children[6].style.fontSize = "30px";
+  item.children[6].style.color = "red";
   if (i % 2 === 0) {
-    li.style.backgroundColor = "lightgreen";
+    item.classList.add("li-color");
   }
+
+  allPrice += listOfProducts[i]["productPrice"];
+
+  if (maxPrice < listOfProducts[i]["productPrice"]) {
+    maxPrice = listOfProducts[i]["productPrice"];
+  }
+  list.append(item);
 }
+document.body.append(list);
+
+const midlePrice = +(allPrice / listOfProducts.length).toFixed(2);
+
+const paragraph1 = document.createElement("p");
+const paragraph2 = document.createElement("p");
+const paragraph3 = document.createElement("p");
+paragraph1.innerHTML = `All price: ${allPrice} UAH.`;
+paragraph2.innerHTML = `Max price: ${maxPrice} UAH.`;
+paragraph3.innerHTML = `Midle price: ${midlePrice} UAH.`;
+paragraph1.classList.add("tittle");
+paragraph2.classList.add("tittle");
+paragraph3.classList.add("tittle");
+document.body.append(paragraph1);
+document.body.append(paragraph2);
+document.body.append(paragraph3);
