@@ -36,14 +36,24 @@ document.querySelector(".keyWrapper").onclick = (event) => {
     }
   }
   // adding a number, aading an operators to an accumulator,  and cleaning a number
+  const arrayOfAcc = acc.split("");
   if (operator.includes(key)) {
-    acc += num;
-    acc += key;
-    num = "0";
-    secondNum = false;
+    //blocking division by zero
+    if (arrayOfAcc[arrayOfAcc.length - 1] === "/" && num === "0") {
+      num = "Error: Invalid operation";
+      console.log("Сідай два, на нуль ділити не можна!");
+      display.innerHTML = num;
+      acc = "";
+      num = "0";
+    } else {
+      acc += num;
+      acc += key;
+      num = "0";
+      secondNum = false;
+    }
   }
   //calculation
-  const arrayOfAcc = acc.split("");
+
   if (key === "=") {
     //blocking division by zero
     if (arrayOfAcc[arrayOfAcc.length - 1] === "/" && num === "0") {
