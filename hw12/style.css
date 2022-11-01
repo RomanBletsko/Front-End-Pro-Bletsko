@@ -1,0 +1,124 @@
+body{
+    margin: 0;
+    background: #c6d0e7;
+    font-family:  Arial, sans-serif;
+    font-size: 30px;
+    line-height: 34px;
+    color: aliceblue;
+}
+.main{
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.calculator{
+    border-radius: 5px;
+    border: 1px solid #484748;
+    overflow: hidden;
+    width: 280px;
+}
+.screen{
+   
+    width: 280px;
+    min-height: 70px;
+    background-color: #3b3a3b;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding: 5px;
+    box-sizing: border-box;
+}
+.keyWrapper{
+    width: 288px;
+    font-size: 0;
+    vertical-align: top;
+}
+.btn{
+    padding: 0;
+    width: 70px;
+    height: 70px;
+    border-radius: 0;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #3b3a3b;
+    background: #7b7a7c;
+    font-size: 40px;
+    line-height: 46px;
+    color: aliceblue;
+    text-align: center;
+    vertical-align: middle;
+    
+}
+.btn_color:active{
+    background: #9f9f9f;
+}
+.btn_size{
+    width: 140px;
+}
+.btn_color-1{
+    background: #484748;
+}
+.btn_color-1:active{
+    background: #686768;
+}
+.btn_color-2{
+    background: #ea922e;
+}
+.btn_color-2:active{
+    background: #ffae52;
+}
+
+.toDoList{
+    width: 1000px;
+    background-color: #3b3a3b;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 0;
+    padding: 20px;
+    margin: 0 10px;
+    
+}
+.input{
+    width: 250px;
+    min-height: 25px;
+    background-color: black;
+    border: none;
+    color: aliceblue; 
+    border-radius: 0;
+    padding: 0 5px;
+}
+.btnAdd{
+    height: 25px;
+    width: 40px;
+    border-radius: 0;
+    border: none;
+    background: #ea922e;
+    color: aliceblue;
+    
+}
+.list{
+    list-style: none;
+    padding: 0;
+}
+.item{
+    font-size: 18px;
+    line-height: 22px;
+    background: #000;
+    margin: 5px;
+    padding: 10px 10px 10px 50px ;
+    text-align: left;
+    position: relative;
+}
+.cleaning{
+    background: #000;
+    margin-right:20px ;
+    border: 1px solid aliceblue;
+    color: aliceblue;
+    position: absolute;
+    left: 10px;
+    top: 12px;
+    border-radius: 2px;
+}
+
+
