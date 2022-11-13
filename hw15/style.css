@@ -1,0 +1,32 @@
+body{
+    margin: 0;
+    background: #8fa2a282;
+    font: 16px/26px Arial, sans-serif;
+    font-weight: 500;
+}
+.wether_bloc{
+    text-align: center;
+    padding: 20px 0;
+}
+.day-list{
+    list-style: none;
+    padding: 0;
+}
+.day-item{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    border-top: 1px dotted #000;
+}
+.day-list:last-child{
+        border-bottom: 1px dotted #000;
+}
+.wrapper{
+    gap: 40px;
+    display: flex ;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
