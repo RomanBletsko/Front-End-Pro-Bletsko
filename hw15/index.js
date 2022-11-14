@@ -15,10 +15,9 @@ const sitys = [
   { name: "New York", key: 349727 },
 ];
 
-const sity = document.querySelector(".sitychosen_city");
+const sity = document.querySelector(".chosen_city");
 sitys.forEach((element) => {
   const option = document.createElement("option");
-  option.classList.add("sity");
   option.innerHTML = element.name;
   sity.append(option);
 });
@@ -36,15 +35,14 @@ const convertToCelsius = function (temp) {
   return Math.round((temp - 32) / 1.8);
 };
 const dayList = document.querySelector(".day-list");
-const xhttp = new XMLHttpRequest();
+const xhr = new XMLHttpRequest();
 const loadWeather = function () {
   const fullUrl = `${API_URL}${sityKey}?apikey=${API_Key}`;
-  xhttp.open("GET", fullUrl);
-  xhttp.send();
-  xhttp.onload = function () {
+  xhr.open("GET", fullUrl);
+  xhr.send();
+  xhr.onload = function () {
     if (this.readyState === 4 && this.status === 200) {
       const result = JSON.parse(this.response);
-      //   console.log(result);
       const daysArray = result.DailyForecasts;
       dayList.replaceChildren();
       daysArray.forEach((element) => {
@@ -55,10 +53,25 @@ const loadWeather = function () {
         const wrapper2 = document.createElement("div");
         wrapper1.classList.add("wrapper");
         wrapper2.classList.add("wrapper");
+        wrapper2.classList.add("wrapper1");
+
         const spanDay = document.createElement("span");
         const spanNight = document.createElement("span");
         spanDay.innerHTML = "Day:";
         spanNight.innerHTML = "Night:";
+
+        const skyDay = document.createElement("span");
+        const skyNight = document.createElement("span");
+        skyDay.innerHTML = element.Day.IconPhrase;
+        skyNight.innerHTML = element.Night.IconPhrase;
+        const precipitationDay = document.createElement("span");
+        const precipitationNight = document.createElement("span");
+        precipitationDay.innerHTML = element.Day.HasPrecipitation
+          ? element.Day.PrecipitationType
+          : "Without precipitation.";
+        precipitationNight.innerHTML = element.Night.HasPrecipitation
+          ? element.Night.PrecipitationType
+          : "Without precipitation.";
 
         const iconDay = document.createElement("span");
         const iconNight = document.createElement("span");
@@ -66,7 +79,6 @@ const loadWeather = function () {
         iconNight.classList.add("icon");
         iconDay.innerHTML = `<img src="./icons/${element.Day.Icon}-s.png" alt="image"/>`;
         iconNight.innerHTML = `<img src="./icons/${element.Night.Icon}-s.png" alt="image"/>`;
-
         const date1 = new Date(element.Date);
         const date = document.createElement("span");
         date.classList.add("date");
@@ -87,16 +99,19 @@ const loadWeather = function () {
         wrapper1.append(spanDay);
         wrapper1.append(tempDay);
         wrapper1.append(iconDay);
+        wrapper1.append(skyDay);
+        wrapper1.append(precipitationDay);
         wrapper2.append(spanNight);
         wrapper2.append(tempNight);
         wrapper2.append(iconNight);
+        wrapper2.append(skyNight);
+        wrapper2.append(precipitationNight);
         day.append(wrapper1);
         day.append(wrapper2);
         dayList.append(day);
-        console.log();
       });
     } else {
-      console.log("No data for server");
+      console.log("No data from server");
     }
   };
 };

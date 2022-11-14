@@ -14,9 +14,10 @@ body{
 }
 .day-item{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    gap: 80px;
     align-items: center;
-    padding: 10px 0;
+    padding: 10px 20px;
     border-top: 1px dotted #000;
 }
 .day-list:last-child{
@@ -25,8 +26,12 @@ body{
 .wrapper{
     gap: 40px;
     display: flex ;
-    justify-content: space-between;
+    justify-content:flex-start;
     align-items: center;
+    min-width: 40%;
+    
 
 }
-
+/* .wrapper{
+    align-content: flex-end
+} */
