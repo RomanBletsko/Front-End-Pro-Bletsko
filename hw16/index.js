@@ -23,7 +23,87 @@ const render404Page = () => {
   page404.innerHTML = "Erorr 404 page not found!";
   details.append(page404);
 };
-// get data for pagination and create
+// build paginnation
+const buildPaginationList = (data) => {
+  pagination.replaceChildren();
+  details.replaceChildren();
+  if (data.Response === "True") {
+    numberOfPages = 0;
+    // create paginations button
+    for (let i = 1; i <= 100 && i <= Math.ceil(data.totalResults / 10); i++) {
+      const page = document.createElement("li");
+      page.classList.add("pages-item");
+      const pageNumber = document.createElement("button");
+      pageNumber.classList.add("page-num");
+      pageNumber.innerHTML = i;
+      page.append(pageNumber);
+      pagination.append(page);
+      numberOfPages = i;
+    }
+    // create next prev button
+    if (numberOfPages > 1) {
+      const pagePrev = document.createElement("li");
+      pagePrev.classList.add("pages-item");
+      const pageBtnPrev = document.createElement("button");
+      pageBtnPrev.classList.add("page-num");
+      pageBtnPrev.innerHTML = "prev";
+      pagePrev.append(pageBtnPrev);
+      pagination.prepend(pagePrev);
+
+      const pageNext = document.createElement("li");
+      pageNext.classList.add("pages-item");
+      const pageBtnNext = document.createElement("button");
+      pageBtnNext.classList.add("page-num");
+      pageBtnNext.innerHTML = "next";
+      pageNext.append(pageBtnNext);
+      pagination.append(pageNext);
+    }
+  }
+};
+const builtResultPage = (data) => {
+  const result = data.Search;
+  details.replaceChildren();
+  resultList.replaceChildren();
+  if (data.Response === "True") {
+    result.forEach((element) => {
+      const item = document.createElement("li");
+      item.classList.add("result-item");
+      const poster = document.createElement("img");
+      poster.classList.add("poster");
+      if (element.Poster === "N/A") {
+        poster.src = "./images/photo_2022-11-22 16.02.29.jpeg";
+      } else {
+        poster.src = element.Poster;
+      }
+      const wrapper = document.createElement("div");
+      wrapper.classList.add("wrapper");
+      const title = document.createElement("h3");
+      title.classList.add("title");
+      title.innerHTML = element.Title;
+      const type = document.createElement("span");
+      type.innerHTML = `Type: ${element.Type}`;
+      const year = document.createElement("span");
+      year.innerHTML = `Year: ${element.Year}`;
+      const imdbID = document.createElement("span");
+      imdbID.innerHTML = `IMDB ID: ${element.imdbID}`;
+      const btnDetails = document.createElement("button");
+      btnDetails.classList.add("btn-details");
+      btnDetails.id = element.imdbID;
+      btnDetails.innerHTML = "Details";
+
+      wrapper.append(title, year, type, imdbID, btnDetails);
+      item.append(poster, wrapper);
+      resultList.append(item);
+      activePagination();
+    });
+    activePagination();
+  } else {
+    const notFound = document.createElement("span");
+    notFound.innerHTML = "Movie not found!";
+    details.append(notFound);
+  }
+};
+// get data for pagination and result
 const getData = function () {
   const getDataPagesNum = fetch(`${baseURL}s=${input.value}`);
   getDataPagesNum
@@ -31,112 +111,87 @@ const getData = function () {
       if (result.ok) {
         return result.json();
       }
+      render404Page();
     })
     .then((data) => {
-      pagination.replaceChildren();
-      details.replaceChildren();
-      if (data.Response === "True") {
-        numberOfPages = 0;
-        // create paginations button
-        for (
-          let i = 1;
-          i <= 15 && i <= Math.ceil(data.totalResults / 10);
-          i++
-        ) {
-          const page = document.createElement("li");
-          page.classList.add("pages-item");
-          const pageNumber = document.createElement("button");
-          pageNumber.classList.add("page-num");
-          pageNumber.innerHTML = i;
-          page.append(pageNumber);
-          pagination.append(page);
-          numberOfPages = i;
-        }
-        // create next prev button
-        if (numberOfPages > 1) {
-          const pagePrev = document.createElement("li");
-          pagePrev.classList.add("pages-item");
-          const pageBtnPrev = document.createElement("button");
-          pageBtnPrev.classList.add("page-num");
-          pageBtnPrev.innerHTML = "prev";
-          pagePrev.append(pageBtnPrev);
-          pagination.prepend(pagePrev);
-
-          const pageNext = document.createElement("li");
-          pageNext.classList.add("pages-item");
-          const pageBtnNext = document.createElement("button");
-          pageBtnNext.classList.add("page-num");
-          pageBtnNext.innerHTML = "next";
-          pageNext.append(pageBtnNext);
-          pagination.append(pageNext);
-        }
-      }
-    })
-    .then(() => {
-      activePagination();
+      buildPaginationList(data);
+      builtResultPage(data);
     })
     .catch((err) => {
       console.error(err);
     });
 };
 
-// get result of search and bild result page
-const bildDataPage = function () {
+// get result of search
+const buildDataPage = function () {
   const getDataPage = fetch(`${baseURL}s=${input.value}&page=${pageNum}`);
   getDataPage
     .then((result) => {
-      return result.ok ? result.json() : render404Page();
+      if (result.ok) {
+        return result.json();
+      }
+      render404Page();
     })
     .then((data) => {
-      const result = data.Search;
-      details.replaceChildren();
-      resultList.replaceChildren();
-      if (data.Response === "True") {
-        result.forEach((element) => {
-          const item = document.createElement("li");
-          item.classList.add("result-item");
-          const poster = document.createElement("img");
-          poster.classList.add("poster");
-          poster.src = element.Poster;
-          const wrapper = document.createElement("div");
-          wrapper.classList.add("wrapper");
-          const title = document.createElement("h3");
-          title.classList.add("title");
-          title.innerHTML = element.Title;
-          const type = document.createElement("span");
-          type.innerHTML = `Type: ${element.Type}`;
-          const year = document.createElement("span");
-          year.innerHTML = `Year: ${element.Year}`;
-          const imdbID = document.createElement("span");
-          imdbID.innerHTML = `IMDB ID: ${element.imdbID}`;
-          const btnDetails = document.createElement("button");
-          btnDetails.classList.add("btn-details");
-          btnDetails.id = element.imdbID;
-          btnDetails.innerHTML = "Details";
-
-          item.append(poster);
-          wrapper.append(title);
-          wrapper.append(year);
-          wrapper.append(type);
-          wrapper.append(imdbID);
-          wrapper.append(btnDetails);
-          item.append(wrapper);
-          resultList.append(item);
-        });
-      } else {
-        const notFound = document.createElement("span");
-        notFound.innerHTML = "Movie not found!";
-        details.append(notFound);
-      }
-    })
-    .then(() => {
-      activePagination();
+      builtResultPage(data);
     })
     .catch((err) => {
       console.error(err);
     });
 };
-// get data for detail and create
+// build details page
+const buildDetails = (data) => {
+  details.replaceChildren();
+  const poster = document.createElement("img");
+  poster.classList.add("poster-big");
+  if (data.Poster === "N/A") {
+    poster.src = "./images/photo_2022-11-22 16.02.29.jpeg";
+  } else {
+    poster.src = data.Poster;
+  }
+  const wrapper = document.createElement("div");
+  wrapper.classList.add("details-wrapper");
+  const title = document.createElement("h3");
+  title.classList.add("title");
+  title.innerHTML = data.Title;
+  const actors = document.createElement("span");
+  actors.innerHTML = `Actors: ${data.Actors}`;
+  const director = document.createElement("span");
+  director.innerHTML = `Director: ${data.Director}`;
+  const country = document.createElement("span");
+  country.innerHTML = `Country: ${data.Country}`;
+  const genre = document.createElement("span");
+  genre.innerHTML = `Genre: ${data.Genre}`;
+  const awards = document.createElement("span");
+  awards.innerHTML = `Awards: ${data.Awards}`;
+  const imdbRating = document.createElement("span");
+  imdbRating.innerHTML = `imdbRating: ${data.imdbRating}`;
+  const rated = document.createElement("span");
+  rated.innerHTML = `Rated: ${data.Rated}`;
+  const plot = document.createElement("span");
+  plot.innerHTML = `Plot: ${data.Plot}`;
+
+  const type = document.createElement("span");
+  type.innerHTML = `Type: ${data.Type}`;
+  const year = document.createElement("span");
+  year.innerHTML = `Year: ${data.Year}`;
+
+  wrapper.append(
+    title,
+    year,
+    country,
+    actors,
+    awards,
+    director,
+    genre,
+    type,
+    imdbRating,
+    rated,
+    plot
+  );
+  details.append(poster, wrapper);
+};
+// get data for detail
 const getDetails = function () {
   const detailsData = fetch(`${baseURL}i=${filmId}`);
   detailsData
@@ -144,55 +199,11 @@ const getDetails = function () {
       if (data.ok) {
         return data.json();
       }
+      render404Page();
     })
     .then((data) => {
       if (data.Response === "True") {
-        details.replaceChildren();
-
-        const poster = document.createElement("img");
-        poster.classList.add("poster-big");
-        poster.src = data.Poster;
-        const wrapper = document.createElement("div");
-        wrapper.classList.add("details-wrapper");
-        const title = document.createElement("h3");
-        title.classList.add("title");
-        title.innerHTML = data.Title;
-        const actors = document.createElement("span");
-        actors.innerHTML = `Actors: ${data.Actors}`;
-        const director = document.createElement("span");
-        director.innerHTML = `Director: ${data.Director}`;
-        const country = document.createElement("span");
-        country.innerHTML = `Country: ${data.Country}`;
-        const genre = document.createElement("span");
-        genre.innerHTML = `Genre: ${data.Genre}`;
-        const awards = document.createElement("span");
-        awards.innerHTML = `Awards: ${data.Awards}`;
-        const imdbRating = document.createElement("span");
-        imdbRating.innerHTML = `imdbRating: ${data.imdbRating}`;
-        const rated = document.createElement("span");
-        rated.innerHTML = `Rated: ${data.Rated}`;
-        const plot = document.createElement("span");
-        plot.innerHTML = `Plot: ${data.Plot}`;
-
-        const type = document.createElement("span");
-        type.innerHTML = `Type: ${data.Type}`;
-        const year = document.createElement("span");
-        year.innerHTML = `Year: ${data.Year}`;
-
-        details.append(poster);
-        wrapper.append(title);
-        wrapper.append(year);
-        wrapper.append(country);
-        wrapper.append(actors);
-        wrapper.append(awards);
-        wrapper.append(director);
-        wrapper.append(genre);
-        wrapper.append(type);
-        wrapper.append(imdbRating);
-        wrapper.append(rated);
-        wrapper.append(plot);
-
-        details.append(wrapper);
+        buildDetails(data);
       }
     })
     .catch((err) => {
@@ -203,7 +214,7 @@ const getDetails = function () {
 button.addEventListener("click", () => {
   pageNum = 1;
   getData();
-  bildDataPage();
+  // buildDataPage();
 });
 resultList.addEventListener("click", (event) => {
   if (event.target.classList.contains("btn-details")) {
@@ -216,20 +227,19 @@ pagination.addEventListener("click", (event) => {
   if (event.target.classList.contains("page-num")) {
     if (pageNum !== 1 && event.target.textContent === "prev") {
       pageNum -= 1;
-      bildDataPage();
+      buildDataPage();
     } else if (
       event.target.textContent === "next" &&
       pageNum !== numberOfPages
     ) {
       pageNum += 1;
-      bildDataPage();
-      console.log(pageNum);
+      buildDataPage();
     } else if (
       event.target.textContent !== "prev" &&
       event.target.textContent !== "next"
     ) {
       pageNum = +event.target.textContent;
-      bildDataPage();
+      buildDataPage();
     }
   }
 });
