@@ -1,51 +1,88 @@
 body{
     margin: 0;
-    background: #8fa2a282;
+    background: #ffffff;
     font: 16px/26px Arial, sans-serif;
     font-weight: 500;
 }
-.wether_bloc{
-    text-align: center;
+.btn{
+    background: #aabdbd3b;
+    border: 1px solid #61636d;
+    border-radius: 3px;
+    box-shadow: 12px 12px 15px 2px rgba(57, 57, 57, 0.2);
+}
+.city-span{
+    background-color:#aabdbd3b ; 
+    padding:2px 10px;
+    border-radius: 5px;
+    border: 1px solid #61636d ;
+    box-shadow: 12px 12px 15px 2px rgba(57, 57, 57, 0.2);
+    margin-right:100px ;
+
+}
+.weather_bloc{
+    text-align: right;
     padding: 20px 0;
+    width: 1210px;
+}
+.result-wrapper{
+    text-align: center;
+   
+}
+.error-span{
+    font-size: 30px;
+    line-height: 36px;
 }
 .day-list{
     list-style: none;
     padding: 0;
+    display: flex;
 }
 .day-item{
+    width: 180px;
+    margin: 0 10px;
     display: flex;
-    justify-content: space-between;
-    gap: 80px;
+    flex-direction: column;
+    gap: 20px;
     align-items: center;
     padding: 10px 20px;
-    border-top: 1px dotted #000;
-}
-.day-list:last-child{
-        border-bottom: 1px dotted #000;
+    border: 1px solid #61636d;
+    border-radius: 10px;
+    background: #aabdbd3b;
+    /* background: linear-gradient(90deg, rgba(0,212,255,0.517266281512605) 0%, rgba(216,246,246,1) 9%, rgba(216,246,246,0.6321122198879552) 91%, rgba(0,212,255,0.33239233193277307) 100%); */
+    box-shadow: 12px 12px 15px 2px rgba(57, 57, 57, 0.2);
 }
 .wrapper{
-    gap: 40px;
+    width: 100%;
     display: flex ;
+    flex-direction: column;
     justify-content:flex-start;
     align-items: center;
-    min-width: 40%;
+    border-top: 1px dashed #61636d;
     
 
 }
-/* .wrapper{
-    align-content: flex-end
-} */
-Footer
-© 2022 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
+.neighbors-list{
+    display: flex;
+    list-style: none;
+    justify-content: start;
+    gap: 30px;
+    padding: 10px;
+}
+.neighbors-item{
+    /* background: #fff; */
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: 1px solid #61636d;
+    border-radius: 5px;
+    box-shadow: 12px 12px 15px 2px rgba(57, 57, 57, 0.2);
+}
+.neighbors-item{
+    background-color: #aabdbd3b;
+    text-align: center;
+}
+.neighbor-Btn{
+    background: #aabdbd3b;
+    border: 1px solid #61636d;
+    border-radius: 5px;
+}
