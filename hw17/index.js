@@ -1,4 +1,4 @@
-const API_Key = "K0TNJSRxnVYuWmnzFDRK57OXKpkdcBcw";
+const API_Key = "uYHPCrdlZ6Nwi2puAgv2HJwcYCEf5Jr5";
 const API_URL = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/";
 const citys = [
   { name: "Lviv", key: 324561 },
