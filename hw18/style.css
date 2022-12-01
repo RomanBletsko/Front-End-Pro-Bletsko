@@ -25,6 +25,7 @@ body{
     line-height: 36px;
 }
 .result-list{
+   padding: 15px;
     list-style: none;
     display: grid;;
     grid-template-columns: 50% 50%;
